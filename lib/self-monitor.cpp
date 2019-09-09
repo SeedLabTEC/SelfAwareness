@@ -1,34 +1,45 @@
 /* includes */
 #include <iostream>
 #include <fstream>
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <string.h>
 
 /* namespaces */
 using namespace std;
 
-int getSystemPower()    
+double getCPU(int pid)
 {
-    int x;
-    int current = 0;
-    int voltage = 0;
-    ifstream inFile;
-    
-    inFile.open("/sys/class/power_supply/BAT1/current_now");
-    if (!inFile) {
-        cout << "Unable to open file";
-        exit(1); // terminate with error
+    double data = system("top -p 21590 -b -d 1 -n 1 > test.txt");
+    FILE *fp;
+    char str[1000];
+    char *filename = "test.txt";
+    fp = fopen(filename, "r");
+    if (fp == NULL)
+    {
+        printf("Could not open file %s", filename);
+        return 1;
     }
-    
-    inFile >> current;
-    inFile.close();
-
-    inFile.open("/sys/class/power_supply/BAT1/voltage_now");
-    if (!inFile) {
-        cout << "Unable to open file";
-        exit(1); // terminate with error
+    while (fgets(str, 1000, fp) != NULL){
     }
+  char *ptr = strtok(str, " ");
+    int cont=0;
+    char *res;
+  while(ptr != NULL)
+  {
+        if(cont==8)
+            res=ptr;
+    ptr = strtok(NULL, " ");
+        cont++;
+  }
+    printf("CPU usage: %s\n", res);
+    fclose(fp);
+    return 0;
+}
 
-    inFile >> voltage;
-    inFile.close();
-
-    return current * voltage;
+double getPIDPower(int pid)
+{
+    double cpu = getCPU(pid);
+    return cpu;
 }

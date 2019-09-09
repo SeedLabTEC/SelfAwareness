@@ -1,2 +1,2 @@
 /* Functions */
-int getSystemPower();
+double getPIDPower(int pid);
