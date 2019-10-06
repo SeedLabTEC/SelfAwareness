@@ -2,9 +2,9 @@
 #include <iostream>
 #include <unistd.h>
 #include <stdlib.h>
-
-#include "../include/self-monitor.h"
-#include "../include/env-monitor.h"   
+#include <env-monitor.h> 
+#include <self-monitor.h> 
+#include <powerModel.h> 
 
 /* namespaces */
 using namespace std;
