@@ -9,16 +9,14 @@ LIB_NAME_ENVMONITOR=envMonitor
 LIB_NAME_SELFMONITOR=selfMonitor
 LIB_NAME_MODEL=powerModel
 
-.PHONY: testing
-
 main:
 	@$(MAKE) build
 
-build: powerModel
+build: clean testing
 	@echo "Application Builded"
-
-powerModel:	
-	@$(CC) -I"$(HEADER)" -L"$(LIB_PATH)" -Wl,-rpath="$(LIB_PATH)" -o "$(BIN_DIR)/$(APP)" $(C_FILES) -l$(LIB_NAME_ENVMONITOR) -l$(LIB_NAME_SELFMONITOR) -l$(LIB_NAME_MODEL)
 
 testing:
 	@$(CC) -I"$(HEADER)" -L"$(LIB_PATH)" -Wl,-rpath="$(LIB_PATH)" -o testing testing.cpp -l$(LIB_NAME_ENVMONITOR) -l$(LIB_NAME_SELFMONITOR) -l$(LIB_NAME_MODEL)
+
+clean:
+	@rm testing 2> /dev/null

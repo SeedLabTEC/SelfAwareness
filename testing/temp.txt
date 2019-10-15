@@ -1,0 +1,8 @@
+top - 20:06:26 up  2:09,  1 user,  load average: 0.60, 0.74, 0.62
+Tasks:   1 total,   0 running,   1 sleeping,   0 stopped,   0 zombie
+%Cpu(s):  3.5 us,  1.1 sy,  0.0 ni, 94.8 id,  0.3 wa,  0.0 hi,  0.4 si,  0.0 st
+KiB Mem :  8039040 total,   541840 free,  4075224 used,  3421976 buff/cache
+KiB Swap:  2097148 total,  2089212 free,     7936 used.  2860756 avail Mem 
+
+  PID USER      PR  NI    VIRT    RES    SHR S  %CPU %MEM     TIME+ COMMAND
+ 5515 rodolfo   20   0 1105624 164496 119396 S   6.7  2.0   3:09.02 Xorg
