@@ -32,7 +32,7 @@ double getCPU(int pid)
     char *ptr = strtok(str, " ");
     int cont = 0;
     char *res;
-    //system("rm -r temp.txt");
+    system("rm -r temp.txt");
     while (ptr != NULL)
     {
         if (cont == 8)
@@ -43,7 +43,6 @@ double getCPU(int pid)
         ptr = strtok(NULL, " ");
         cont++;
     }
-    writeResult(res,"powerCpu.txt");
     fclose(fp);
     x=atof(res);
     return x;
@@ -71,7 +70,7 @@ double getMem(int pid)
     char *ptr = strtok(str, " ");
     int cont = 0;
     char *res;
-    //system("rm -r temp.txt");
+    system("rm -r temp.txt");
     while (ptr != NULL)
     {
         if (cont == 9)
@@ -82,17 +81,16 @@ double getMem(int pid)
         ptr = strtok(NULL, " ");
         cont++;
     }
-    writeResult(res,"powerMem.txt");
     fclose(fp);
     x=atof(res);
     return x;
 }
 
-void writeResult(char *data,char* output)
+void writeResult(double data,char* output)
 {
     FILE *fp;
     fp = fopen(output, "a");
-    fprintf(fp, "%s\n", data);
+    fprintf(fp, "%f\n", data);
     fclose(fp);
 }
 
@@ -129,10 +127,11 @@ double getPower()
 
 double getPIDPower(int pid)
 {
-    double cpu = getMem(pid);
+    double cpu = getCPU(pid);
     double mem = getMem(pid);
     double power = getPower();
     double temp_porc = cpu * mem;
-    double pidPower = (temp_porc * power) / 100;
+    double pidPower = (temp_porc * power) / 100; // supone que solo cpu y mem influyen en la potencia
+    writeResult(pidPower,"selfPower.txt");
     return pidPower;
 }

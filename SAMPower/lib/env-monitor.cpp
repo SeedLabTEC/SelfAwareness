@@ -6,6 +6,14 @@
 /* namespaces */
 using namespace std;
 
+void writeResult(double data,char* output)
+{
+    FILE *fp;
+    fp = fopen(output, "a");
+    fprintf(fp, "%f\n", data);
+    fclose(fp);
+}
+
 double getSystemPower()    
 {
     int x;
@@ -33,6 +41,9 @@ double getSystemPower()
 
     double newCurrent = (double)current/(double)1000000;
     double newVoltage = (double)voltage/(double)1000000;
+    double power = newCurrent * newVoltage;
 
-    return newCurrent * newVoltage;
+    writeResult(power,"envPower.txt");
+
+    return power;
 }

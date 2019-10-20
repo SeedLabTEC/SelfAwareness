@@ -7,13 +7,10 @@ enum Origin{
 };
 
 enum Functions{
-    slowFreq  = 0,
-    increaseFreq = 1,
-    movePID = 2,
-    stopProcessor = 3,
-    initProcessor = 4,
-    stopPID = 5,
-    initPID = 6
+    movePID = 0,
+    stopProcessor = 1,
+    initProcessor = 2,
+    stopPID = 3
 
 };
 
@@ -22,8 +19,10 @@ struct eqmodel
     int origin; // origin ? power = 0, cpu = 1, mem = 2
     int priority; //define the priority of execution in queue
     int function; // define function to execute
+    int pid;
+    int processor;
 
-    eqmodel(int porigin,int ppriority,int pfunction): origin(porigin), priority(ppriority), function(pfunction){}
+    eqmodel(int porigin,int ppriority,int pfunction,int ppid,int proc): origin(porigin), priority(ppriority), function(pfunction), pid(ppid),processor(proc){}
 
     bool operator <(const eqmodel & model) const
 	{

@@ -1,11 +1,11 @@
 /* includes */
 #include <iostream>
-#include <list> 
-#include <EQModel.h>
+#include <executionQueue.h>
 
 /* namespaces */
 using namespace std;
 
+/*global var*/
 list<eqmodel> gq;
 
 void print_gq(){
@@ -32,4 +32,8 @@ eqmodel pop(){
     eqmodel temp = gq.back();
     gq.pop_back();
     return temp;
+}
+
+int size(){
+    return gq.size();
 }
