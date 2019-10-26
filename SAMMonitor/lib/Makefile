@@ -6,6 +6,10 @@ CFLAGS_LIB= -shared
 CFLAGS= -fpic
 WD=$(shell pwd)
 HEADER=include
+LIB_NAME_MEMORYMONITOR=memoryMonitor
+LIB_NAME_CPUMONITOR=selfmonitorCPU
+LIB_NAME_POWERMONITOR=selfMonitor
+LIB_PATH=$(WD)/
 
 main: object-generator static-compile dynamic-compile clean-objects
 	@echo "Compilation Finished"
@@ -14,8 +18,7 @@ object-generator: object-memorymonitor
 	@echo "Object generated"
 
 object-memorymonitor:
-	${CC} -Wall -o ${MONITOR_NAME}.o -c monitor.cpp ${CFLAGS} -lm -I"$(WD)/../$(HEADER)"
-
+	${CC} -I"$(WD)/../$(HEADER)" -L"$(LIB_PATH)" -Wall -o ${MONITOR_NAME}.o -c monitor.cpp ${CFLAGS} -lm -l$(LIB_NAME_MEMORYMONITOR) -l$(LIB_NAME_CPUMONITOR) -l$(LIB_NAME_POWERMONITOR) 
 static-compile: static-memorymonitor 
 	@echo "Static libs generated"
 
