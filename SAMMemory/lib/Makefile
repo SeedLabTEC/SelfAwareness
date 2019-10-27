@@ -1,5 +1,5 @@
 CC=g++
-MONITOR_NAME=monitor
+MONITOR_NAME=memoryMonitor
 AR=ar
 AR_FLAGS=rvs
 CFLAGS_LIB= -shared
@@ -14,7 +14,7 @@ object-generator: object-memorymonitor
 	@echo "Object generated"
 
 object-memorymonitor:
-	${CC} -Wall -o ${MONITOR_NAME}.o -c monitor.cpp ${CFLAGS} -lm -I"$(WD)/../$(HEADER)"
+	${CC} -Wall -o ${MONITOR_NAME}.o -c memoryMonitor.cpp ${CFLAGS} -lm -I"$(WD)/../$(HEADER)"
 
 static-compile: static-memorymonitor 
 	@echo "Static libs generated"
@@ -29,4 +29,4 @@ dynamic-memorymonitor:
 	@$(CC) -Wall $(MONITOR_NAME).o -o lib$(MONITOR_NAME).so $(CFLAGS_LIB)
 
 clean-objects:
-	@rm *.a *.o 2> /dev/null
+	@rm *.o 2> /dev/null

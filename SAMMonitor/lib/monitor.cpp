@@ -1,13 +1,35 @@
 #include <fstream>
 #include <iostream>
-#include <monitor.h>
-#include <memoryMonitor.h>
-#include <self-monitor.h>
-#include <self-monitorCPU.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <string.h>
+#include <syslog.h>
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <vector>
+#include <sstream>
+#include <signal.h>
+//#include <monitor.h>
+#include "memoryMonitor.cpp"
+#include "self-monitor.cpp"
+#include "self-monitorCPU.cpp"
 #include <time.h>
 #include <unistd.h>
 
 using namespace std;
+
+struct generalUse {
+  int pid;
+  double memPercen;
+  double memBytes;
+  double usePower;
+  double cpuPercen;
+  string date;
+  bool error;
+};
 
 
 const unsigned int microseconds = 500000;
@@ -75,4 +97,8 @@ void monitorProcess(int pid){
     }
     printf("process end\n");
     return;
+}
+
+void printed(){
+    printf("test");
 }

@@ -4,10 +4,18 @@
 #include <unistd.h>
 #include <string.h>
 #include <sstream>
-#include <self-monitorCPU.h>
+//#include <self-monitorCPU.h>
 
 /* namespaces */
 using namespace std;
+
+void writeResultCPU(char *data)
+{
+    FILE *fp;
+    fp = fopen("cpuOut.txt", "a");
+    fprintf(fp, "%s\n", data);
+    fclose(fp);
+}
 
 /* functions */
 double getCpuUsage(int pid)
@@ -45,16 +53,9 @@ double getCpuUsage(int pid)
     }
   //  printf("Command used: %s\n", cQuery);
     printf("self-cpu: %s\n", res);
-    writeResult(res);
+    writeResultCPU(res);
     fclose(fp);
     x=atof(res);
     return x;
 }
 
-void writeResult(char *data)
-{
-    FILE *fp;
-    fp = fopen("cpuOut.txt", "a");
-    fprintf(fp, "%s\n", data);
-    fclose(fp);
-}
