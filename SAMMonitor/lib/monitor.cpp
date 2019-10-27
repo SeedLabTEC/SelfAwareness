@@ -68,12 +68,17 @@ void getUsageNow(int pid,struct generalUse *use){
 bool saveRecord(struct generalUse *use){
     // open a file in write mode.
    ofstream outfile;
-   string name = "results/"+ to_string(use->pid);
-   outfile.open(name,std::ofstream::out | std::ofstream::app);
+   ofstream history;
+   string name = "results/"+ to_string(use->pid)+".txt";
+   string nameHisotry = "results/"+ to_string(use->pid)+"all.txt";
+   outfile.open(name);
+   history.open(nameHisotry,std::ofstream::out | std::ofstream::app);
    // write inputted data into the file.
    string data = to_string(use->pid)+":"+to_string(use->memBytes)+":"+to_string(use->memPercen)+":"+to_string(use->cpuPercen)+":"+to_string(use->usePower)+":"+use->date;
    outfile << data << endl;
+   history << data << endl;
    outfile.close();
+   history.close();
    return true;
 }
 
