@@ -1,9 +1,9 @@
 from distutils.core import setup, Extension
 
-sammonitor = Extension('SAMMonitor', sources = ['pythonMonitor.cpp'])
+sammonitor = Extension('sammonitor', sources = ['pythonMonitor.cpp'])
 
 setup(
-    name        = 'SAMMonitor',
+    name        = 'sammonitor',
     version     = '1.0',
     description = 'Sample python C-API exploration',
     ext_modules = [sammonitor]

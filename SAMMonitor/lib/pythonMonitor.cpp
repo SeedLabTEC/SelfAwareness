@@ -44,7 +44,7 @@ static PyMethodDef ModuleFunctions [] =
 static struct PyModuleDef ModuleDefinitions {
 	PyModuleDef_HEAD_INIT,
 	// Module name as string 
-	"mymodule",
+	"sammonitor",
 	// Module documentation (docstring)
 	"A sample C++ native-code module for python3.",
 	-1,
@@ -56,7 +56,7 @@ static struct PyModuleDef ModuleDefinitions {
  *  PyInit_<ModuleName> where ModuleName is the same base name of theWW
  *  shared library ModuleName.so (on Linux) or ModuleName.pyd (on Windows)
  */
-PyMODINIT_FUNC PyInit_mymodule(void)
+PyMODINIT_FUNC PyInit_sammonitor(void)
 {
 	Py_Initialize();
 	PyObject* pModule = PyModule_Create(&ModuleDefinitions);

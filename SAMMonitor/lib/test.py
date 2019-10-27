@@ -1,4 +1,4 @@
-import mymodule as m
+import sammonitor as m
 
 print("\n ==== Call function: monitorProcess ====\n")
 m.monitorApp(10)
