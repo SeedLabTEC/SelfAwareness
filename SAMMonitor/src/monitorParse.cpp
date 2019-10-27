@@ -105,11 +105,4 @@ int mapRead()
     
     return 0;
 }
-
-int main(){
-    while(1)
-        readLine();
-
-    return 0;
-}
  
