@@ -1,6 +1,6 @@
 from distutils.core import setup, Extension
 
-mymodule = Extension('SAMMonitor', sources = ['pythonMonitor.cpp'])
+sammonitor = Extension('SAMMonitor', sources = ['pythonMonitor.cpp'])
 
 setup(
     name        = 'SAMMonitor',
