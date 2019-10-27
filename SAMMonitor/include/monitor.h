@@ -27,4 +27,5 @@ bool checkRunning(int pid);
 void getUsageNow(int pid,struct generalUse *use);
 bool recordProcess(int pid,struct generalUse *use);
 void monitorProcess(int pid);
+void printed();
 bool saveRecord(struct generalUser *use);

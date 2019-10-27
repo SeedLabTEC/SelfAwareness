@@ -14,22 +14,23 @@ LIB_PATH=$(WD)/
 main: object-generator static-compile dynamic-compile clean-objects
 	@echo "Compilation Finished"
 
-object-generator: object-memorymonitor 
+object-generator: object-monitor 
 	@echo "Object generated"
 
-object-memorymonitor:
-	${CC} -I"$(WD)/../$(HEADER)" -L"$(LIB_PATH)" -Wall -o ${MONITOR_NAME}.o -c monitor.cpp ${CFLAGS} -lm -l$(LIB_NAME_MEMORYMONITOR) -l$(LIB_NAME_CPUMONITOR) -l$(LIB_NAME_POWERMONITOR) 
-static-compile: static-memorymonitor 
+object-monitor:
+	${CC} ${CFLAGS} -I"$(WD)/../$(HEADER)" -Wall -o ${MONITOR_NAME}.o -c monitor.cpp 
+
+static-compile: static-monitor 
 	@echo "Static libs generated"
 
-static-memorymonitor:
+static-monitor:
 	${AR} ${AR_FLAGS} lib${MONITOR_NAME}.a ${MONITOR_NAME}.o
 
-dynamic-compile: dynamic-memorymonitor
+dynamic-compile: dynamic-monitor
 	@echo "Dynamic libs generated"
 
-dynamic-memorymonitor:
-	@$(CC) -Wall $(MONITOR_NAME).o -o lib$(MONITOR_NAME).so $(CFLAGS_LIB)
+dynamic-monitor:
+	@$(CC) $(CFLAGS_LIB) -Wall $(MONITOR_NAME).o -o lib$(MONITOR_NAME).so 
 
 clean-objects:
 	@rm *.a *.o 2> /dev/null
