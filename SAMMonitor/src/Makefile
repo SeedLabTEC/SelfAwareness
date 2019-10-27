@@ -19,6 +19,6 @@ build: monitorModel
 	@echo "Application Builded"
 
 monitorModel:	
-	@$(CC) -I"$(HEADER)" -L"$(LIB_PATH)" -Wl,-rpath="$(LIB_PATH)" -o "$(BIN_DIR)/$(APP)" $(C_FILES) -l$(LIB_NAME_MONITOR) -l$(LIB_NAME_MEMORYMONITOR) -l$(LIB_NAME_CPUMONITOR) -l$(LIB_NAME_POWERMONITOR) 
+	@$(CC) -I"$(HEADER)" -L"$(LIB_PATH)" -Wl,-rpath="$(LIB_PATH)" -o "$(BIN_DIR)/$(APP)" $(C_FILES) -l$(LIB_NAME_MONITOR) -l$(LIB_NAME_MEMORYMONITOR) -l$(LIB_NAME_CPUMONITOR) -l$(LIB_NAME_POWERMONITOR)
 
 
