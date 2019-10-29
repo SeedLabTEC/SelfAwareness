@@ -113,9 +113,11 @@ double getPIDPower(int pid)
      * y = mx + b ; b se elimina segun el nuevo marco de referencia, si no se cambia la referencia entonces b = 0.0017 
      **/
     current_freq = (current_freq / 1000);
-    double cache_miss = (100*abs(read_bytes-rchar)/(rchar+read_bytes)); // REVISAR
+    double cache_miss = (100*(read_bytes)/(rchar)); // REVISAR
     if(cache_miss == 0)
         cache_miss = 1;
+    if(cache_miss > 0)
+        cache_miss = 100;
     double power = (0.00008056 * (current_freq * cache_miss));
     double power_porcent = 100*power / (max_current*voltaje);
     return power_porcent;
@@ -123,6 +125,6 @@ double getPIDPower(int pid)
 
 int main(){
     cout << getPower() << endl;
-    cout << getPIDPower(18162) << endl;
+    cout << getPIDPower(8051) << endl;
     return 0;
 }

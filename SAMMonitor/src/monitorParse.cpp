@@ -8,10 +8,11 @@
 #include <sys/stat.h>
 #include <sys/mman.h>
 #include <unistd.h>
+#include <monitorParse.h>
 
 using namespace std;
 
-#define FILE_PATH "/home/rodolfo/self-awareness/SelfAwareness/SAMMonitor/bin/results/1511" 
+#define FILE_PATH "/home/rodolfo/self-awareness/SelfAwareness/SAMMonitor/bin/results/1511.1" 
 
 ifstream file;
 int fd;
@@ -25,6 +26,7 @@ float power_porcent;
 int date;
 int last_read_date = 0;
 
+monitorData readData = monitorData(&pid,&mem_bytes,&mem_porcent,&cpu_porcent,&power_porcent,&date);
 
 void openFile(){
     file.open(FILE_PATH);
@@ -45,7 +47,7 @@ void readLine(){
         sscanf(str.c_str(), "%i:%f:%f:%f:%f:%i", &pid,&mem_bytes,&mem_porcent,&cpu_porcent,&power_porcent,&date);
         if(date > last_read_date){
             last_read_date = date;
-            cout << pid <<endl;
+            cout << "power porcent: " << power_porcent << endl; 
             iterator --;
         }
     }
@@ -105,4 +107,14 @@ int mapRead()
     
     return 0;
 }
- 
+
+monitorData getreadData(){
+    return readData;
+}
+
+void runMonitorQueue(){
+    while(1){
+        readLine();
+        usleep(1000000);
+    }
+}

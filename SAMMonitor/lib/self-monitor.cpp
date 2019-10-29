@@ -200,6 +200,8 @@ double getPIDPower(int pid)
     double cache_miss = (100*abs(read_bytes-rchar)/(rchar+read_bytes)); // REVISAR
     if(cache_miss == 0)
         cache_miss = 1;
+    if(cache_miss > 0)
+        cache_miss = 100;
     double power = (0.00008056 * (current_freq * cache_miss));
     double power_porcent = 100*power / (max_current*voltaje);
     return power_porcent;

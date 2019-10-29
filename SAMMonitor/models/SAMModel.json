@@ -1,0 +1,12 @@
+{
+    "upperPower":80,
+    "lowerPower": 20,
+    "upperFreq": 800,
+    "lowerFreq": 700,
+    "upperCores":4.0,
+    "lowerCores":1.0,
+    "upperCPU": 7.5,
+    "lowerCPU": 4.0,
+    "upperMem": 5.0,
+    "lowerMem": 1.0
+}
