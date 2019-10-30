@@ -12,7 +12,7 @@
 
 using namespace std;
 
-#define FILE_PATH "/home/rodolfo/self-awareness/SelfAwareness/SAMMonitor/bin/results/1511.1" 
+#define FILE_PATH "/home/vargas/github/SelfAwareness/SAMMonitor/bin/results/1511.1" 
 
 ifstream file;
 int fd;
