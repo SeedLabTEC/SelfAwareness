@@ -15,6 +15,6 @@ void closeFile();
 
 void readLine();
 
-void runMonitorQueue();
+void runMonitorQueue(int pid);
 
 monitorData getreadData();

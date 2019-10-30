@@ -2,6 +2,7 @@ WD=$(shell pwd)
 BIN_PATH=bin/
 SRC_PATH=$(WD)/src
 LIB_PATH=$(WD)/lib
+LOG_PATH=/var/log/SAM
 
 .PHONY: clean 
 
@@ -13,6 +14,8 @@ main: structure binary
 
 structure:
 	@mkdir -p $(BIN_PATH)
+	@sudo mkdir -p $(LOG_PATH)
+	@sudo mkdir -p $(LOG_PATH)/results
 
 binary:
 	@cd $(LIB_PATH) && $(MAKE)

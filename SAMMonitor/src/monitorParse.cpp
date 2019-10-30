@@ -12,7 +12,7 @@
 
 using namespace std;
 
-#define FILE_PATH "/home/rodolfo/self-awareness/SelfAwareness/SAMMonitor/bin/results/1511.1" 
+string FILE_PATH = "/var/log/SAM/results/";
 
 ifstream file;
 int fd;
@@ -28,8 +28,9 @@ int last_read_date = 0;
 
 monitorData readData = monitorData(&pid,&mem_bytes,&mem_porcent,&cpu_porcent,&power_porcent,&date);
 
-void openFile(){
-    file.open(FILE_PATH);
+void openFile(int pid){
+    string path = FILE_PATH+to_string(pid)+".txt";
+    file.open(path);
     if (!file.is_open())
         cout <<  "File could not be openned" << endl;    
 }
@@ -39,8 +40,8 @@ void closeFile(){
         file.close();
 }
 
-void readLine(){
-    openFile();
+void readLine(int pid){
+    openFile(pid);
     std::string str; 
     int iterator = 1;
     while (std::getline(file, str) && iterator > 0) {
@@ -56,7 +57,8 @@ void readLine(){
 
 int mapRead()
 {   
-    fd = open(FILE_PATH, O_RDONLY, (mode_t)0600);
+    const char* chr = FILE_PATH.c_str();
+    fd = open(chr, O_RDONLY, (mode_t)0600);
     
     if (fd == -1)
     {
@@ -112,9 +114,9 @@ monitorData getreadData(){
     return readData;
 }
 
-void runMonitorQueue(){
+void runMonitorQueue(int pid){
     while(1){
-        readLine();
+        readLine(pid);
         usleep(1000000);
     }
 }

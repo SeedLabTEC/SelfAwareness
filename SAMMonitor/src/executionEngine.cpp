@@ -8,9 +8,11 @@
 
 using namespace std;
 
-void *startMonitorParse(void *threadid){
+void *startMonitorParse(void *pid){
     cout << "init monitor parse" << endl;
-    runMonitorQueue();
+    int* current_pid = (int *) pid;
+    cout << "pid: " << *current_pid << endl;
+    runMonitorQueue(*current_pid);
 }
 
 void *startexecutionManager(void *threadid){
@@ -23,7 +25,7 @@ void *startDecisionMaking(void *threadid){
     runDecisionMaking();
 }
 
-void runThreads(){
+void runThreads(int pid){
     pthread_t t1;
     pthread_t t2;
     pthread_t t3;
@@ -44,8 +46,8 @@ void runThreads(){
         exit(-1);
     }
 
-    t3_rc = pthread_create(&t3, NULL, startMonitorParse, (void *)3);
-      
+    t3_rc = pthread_create(&t3, NULL, startMonitorParse, (void *) &pid);
+
     if (t3_rc) {
         cout << "Error:unable to create thread," << t3_rc << endl;
         exit(-1);

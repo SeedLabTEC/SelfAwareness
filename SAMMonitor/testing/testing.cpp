@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
+#include <SAMModel.h>
 
 /* namespaces */
 using namespace std;
@@ -124,7 +125,8 @@ double getPIDPower(int pid)
 }
 
 int main(){
-    cout << getPower() << endl;
-    cout << getPIDPower(8051) << endl;
+    //cout << getPower() << endl;
+    //cout << getPIDPower(8051) << endl;
+    cout << getCPULowerLimit() << endl;
     return 0;
 }
