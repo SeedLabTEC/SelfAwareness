@@ -12,7 +12,11 @@
 
 using namespace std;
 
+<<<<<<< HEAD
 string FILE_PATH = "/var/log/SAM/results/";
+=======
+#define FILE_PATH "/home/vargas/github/SelfAwareness/SAMMonitor/bin/results/1511.1" 
+>>>>>>> 0e2afa6f575025dd9d16c9dead151c1dfeb95a6b
 
 ifstream file;
 int fd;

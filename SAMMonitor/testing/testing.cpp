@@ -125,8 +125,13 @@ double getPIDPower(int pid)
 }
 
 int main(){
+<<<<<<< HEAD
     //cout << getPower() << endl;
     //cout << getPIDPower(8051) << endl;
     cout << getCPULowerLimit() << endl;
+=======
+    cout << getPower() << endl;
+    cout << getPIDPower(23996) << endl;
+>>>>>>> 0e2afa6f575025dd9d16c9dead151c1dfeb95a6b
     return 0;
 }

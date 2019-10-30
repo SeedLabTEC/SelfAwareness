@@ -56,25 +56,43 @@ void getUsageNow(int pid,struct generalUse *use){
     memoryUse *memUse = new memoryUse();
     getProcessInfo(memUse,pid);
     double cpuUsage = getCpuUsage(pid);
-    //double powerUse = getPIDPower(pid);
+    double powerUse = getPIDPower(pid);
     use->memPercen = memUse->usePercen;
     use->memBytes = memUse->useBytes;
     use->pid=pid;
     use->date = to_string(time(0));
     use->cpuPercen = cpuUsage;
-    //use->usePower = powerUse;
+    use->usePower = powerUse;
 }
 
 bool saveRecord(struct generalUse *use){
     // open a file in write mode.
    ofstream outfile;
    ofstream history;
-   string name = "results/"+ to_string(use->pid)+".txt";
-   string nameHisotry = "results/"+ to_string(use->pid)+"all.txt";
+   string path = "/var/log/SAM/results/";
+   string name = path+ to_string(use->pid)+".txt";
+   string nameHisotry = path+ to_string(use->pid)+"all.txt";
    outfile.open(name);
    history.open(nameHisotry,std::ofstream::out | std::ofstream::app);
    // write inputted data into the file.
-   string data = to_string(use->pid)+":"+to_string(use->memBytes)+":"+to_string(use->memPercen)+":"+to_string(use->cpuPercen)+":"+to_string(use->usePower)+":"+use->date;
+   string data = to_string(use->pid)+":"+to_string(use->memBytes)+":"+to_string(use->memPercen)+":"+to_string(use->cpuPercen)+":"+to_string(use->usePower)+":"+use->date+":"+to_string(1);
+   outfile << data << endl;
+   history << data << endl;
+   outfile.close();
+   history.close();
+   return true;
+}
+bool saveEnd(struct generalUse *use){
+    // open a file in write mode.
+   ofstream outfile;
+   ofstream history;
+   string path = "/var/log/SAM/results/";
+   string name = path+ to_string(use->pid)+".txt";
+   string nameHisotry = path+ to_string(use->pid)+"all.txt";
+   outfile.open(name);
+   history.open(nameHisotry,std::ofstream::out | std::ofstream::app);
+   // write inputted data into the file.
+   string data = to_string(use->pid)+":"+to_string(use->memBytes)+":"+to_string(use->memPercen)+":"+to_string(use->cpuPercen)+":"+to_string(use->usePower)+":"+use->date+":"+to_string(0);
    outfile << data << endl;
    history << data << endl;
    outfile.close();
@@ -88,9 +106,15 @@ bool recordProcess(int pid,struct generalUse *use){
         saveRecord(use);
         return true;
     }
+    use->cpuPercen=0;
+    use->memBytes=0;
+    use->memPercen=0;
+    use->pid=pid;
+    use->usePower=0;
+    use->date= to_string(time(0));
+    saveEnd(use);
     printf("Process not running\n");
     return false;
-    
 }
 
 void monitorProcess(int pid){

@@ -52,7 +52,7 @@ double getCpuUsage(int pid)
         cont++;
     }
   //  printf("Command used: %s\n", cQuery);
-    printf("self-cpu: %s\n", res);
+    //printf("self-cpu: %s\n", res);
     writeResultCPU(res);
     fclose(fp);
     x=atof(res);
