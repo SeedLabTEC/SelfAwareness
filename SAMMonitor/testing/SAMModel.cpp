@@ -3,9 +3,8 @@
 #include <fstream>
 #include <jsoncpp/json/json.h>
 #include <string>
-#include <SAMModel.h>
 
-#define JSON_PATH "../models/SAMModel.json"
+#define JSON_PATH "/usr/SAM/Model/SAMModel.json"
 
 using namespace std;
 
@@ -133,7 +132,7 @@ void setMemLowerLimit(double val){
     saveJson(JSON_PATH);
 }
 
-/*
+
 int main() {
     readJson(JSON_PATH);
     cout << "upper power limit: " << getPowerUpperLimit() << endl;
@@ -176,7 +175,7 @@ int main() {
         // cout << " chapter: " << characters[i]["chapter"].asUInt();
         // cout << endl;
     // }
-}*/
+}
 
 
 

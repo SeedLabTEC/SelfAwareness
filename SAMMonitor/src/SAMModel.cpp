@@ -5,7 +5,7 @@
 #include <string>
 #include <SAMModel.h>
 
-#define JSON_PATH "../models/SAMModel.json"
+#define JSON_PATH "/usr/SAM/Model/SAMModel.json"
 
 using namespace std;
 
@@ -131,6 +131,10 @@ void setMemUpperLimit(double val){
 void setMemLowerLimit(double val){
     model["lowerMem"] = val;
     saveJson(JSON_PATH);
+}
+
+void startJson(){
+    readJson(JSON_PATH);
 }
 
 /*

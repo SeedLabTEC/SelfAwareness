@@ -1,5 +1,6 @@
 /* Functions */
 
+void startJson();
 
 //gets
 double getPowerUpperLimit();

@@ -15,6 +15,7 @@ void writeQueue(int origin,int priority,int function,int pid,int processor){
 void powerDecision(float readPower){
     float upper = getPowerUpperLimit();
     float lower = getPowerLowerLimit();
+    cout << "power: " << lower << endl;
     if(readPower > upper){
         cout << "upper power reached" << endl;
     }
@@ -30,6 +31,7 @@ void takeDecision(){
 }
 
 void runDecisionMaking(){
+    startJson();
     while(1){
         takeDecision();
         usleep(1000000);

@@ -1,6 +1,6 @@
 {
-    "upperPower":80,
-    "lowerPower": 20,
+    "upperPower":20,
+    "lowerPower": 10,
     "upperFreq": 800,
     "lowerFreq": 700,
     "upperCores":4.0,
