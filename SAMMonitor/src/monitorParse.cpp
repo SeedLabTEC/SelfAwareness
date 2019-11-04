@@ -9,6 +9,8 @@
 #include <sys/mman.h>
 #include <unistd.h>
 #include <monitorParse.h>
+#include <logger.h>
+#include <mainFlags.h>
 
 using namespace std;
 
@@ -25,11 +27,13 @@ float cpu_porcent;
 float power_porcent;
 int date;
 int last_read_date = 0;
+int state = 1;
 
 monitorData readData = monitorData(&pid,&mem_bytes,&mem_porcent,&cpu_porcent,&power_porcent,&date);
 
 void openFile(int pid){
     string path = FILE_PATH+to_string(pid)+".txt";
+    writelog("Data file oppened: " + path);
     file.open(path);
     if (!file.is_open())
         cout <<  "File could not be openned" << endl;    
@@ -40,15 +44,24 @@ void closeFile(){
         file.close();
 }
 
-void readLine(int pid){
-    openFile(pid);
+void readLine(int ppid){
+    openFile(ppid);
     std::string str; 
     int iterator = 1;
     while (std::getline(file, str) && iterator > 0) {
-        sscanf(str.c_str(), "%i:%f:%f:%f:%f:%i", &pid,&mem_bytes,&mem_porcent,&cpu_porcent,&power_porcent,&date);
+        sscanf(str.c_str(), "%i:%f:%f:%f:%f:%i:%i", &pid,&mem_bytes,&mem_porcent,&cpu_porcent,&power_porcent,&date,&state);
         if(date > last_read_date){
             last_read_date = date;
-            cout << "power porcent: " << power_porcent << endl; 
+            writelog("pid: " + to_string(pid));
+            writelog("mem bytes: " + to_string(mem_bytes));
+            writelog("mem porcent: " + to_string(mem_porcent));
+            writelog("cpu porcent: " + to_string(cpu_porcent));
+            writelog("power porcent: " + to_string(power_porcent));
+            writelog("date: " + to_string(date));
+            writelog("state: " + to_string(state));
+            if(state == 0){
+                setMainFlag(0);
+            }
             iterator --;
         }
     }

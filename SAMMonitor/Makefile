@@ -19,6 +19,7 @@ structure:
 	@sudo mkdir -p $(LOG_PATH)/results
 	@sudo mkdir -p $(USR_PATH)
 	@sudo mkdir -p $(USR_PATH)/Model
+	@sudo touch $(LOG_PATH)/results/executionEngine.txt
 
 binary:
 	@cd $(LIB_PATH) && $(MAKE)

@@ -1,1 +1,1 @@
-void runDecisionMaking();
+void runDecisionMaking(int);

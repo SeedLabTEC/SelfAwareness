@@ -1,8 +1,10 @@
 /* Functions */
 
-void startJson();
+void startJson(int);
 
 //gets
+int getPID();
+
 double getPowerUpperLimit();
 
 double getPowerLowerLimit();

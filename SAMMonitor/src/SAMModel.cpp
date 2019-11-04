@@ -4,15 +4,25 @@
 #include <jsoncpp/json/json.h>
 #include <string>
 #include <SAMModel.h>
-
-#define JSON_PATH "/usr/SAM/Model/SAMModel.json"
+#include <logger.h>
 
 using namespace std;
 
+string JSON_PATH = "/usr/SAM/Model/";
+
 Json::Value model;
 
-void readJson(string path){
-    ifstream ifs(path);
+void readJson(string path, int pid){
+    string complete_path = path + to_string(pid) + ".json";
+    ifstream ifs(complete_path);
+    if(!ifs.is_open()){
+        cout << "error oppening json file:" + complete_path << endl;
+        writelog("error oppening json file:" + complete_path);
+    }
+    else{
+        writelog("json file oppened: " + complete_path);
+    }
+    
     Json::Reader reader;
     reader.parse(ifs, model); // reader can also read strings
 }
@@ -40,6 +50,10 @@ static string getString(string key){
 static Json::Value getList(string key){
     const Json::Value& temp = model[key];
     return temp;
+}
+
+int getPID(){
+    return getInt("pid");
 }
 
 double getPowerUpperLimit(){
@@ -133,54 +147,9 @@ void setMemLowerLimit(double val){
     saveJson(JSON_PATH);
 }
 
-void startJson(){
-    readJson(JSON_PATH);
+void startJson(int pid){
+    readJson(JSON_PATH, pid);
 }
-
-/*
-int main() {
-    readJson(JSON_PATH);
-    cout << "upper power limit: " << getPowerUpperLimit() << endl;
-    cout << "lower power limit: " << getPowerLowerLimit() << endl;
-    cout << "upper frequency limit: " << getFreqUpperLimit() << endl;
-    cout << "lower frequency limit: " << getFreqLowerLimit() << endl;
-    cout << "upper cores limit: " << getCoresUpperLimit() << endl;
-    cout << "lower cores limit: " << getCoresLowerLimit() << endl;
-    cout << "upper cpu limit: " << getCPUUpperLimit() << endl;
-    cout << "lower cpu limit: " << getCPULowerLimit() << endl;
-    cout << "upper mem limit: " << getMemUpperLimit() << endl;
-    cout << "lower mem limit: " << getMemLowerLimit() << endl;
-
-    setPowerLowerLimit(0.0);
-    setPowerUpperLimit(0.0);
-    setFreqUpperLimit(0.0); 
-    setFreqLowerLimit(0.0); 
-    setCoresUpperLimit(0.0);
-    setCoresLowerLimit(0.0);
-    setCPUUpperLimit(0.0);
-    setCPULowerLimit(0.0);
-    setMemUpperLimit(0.0);
-    setMemLowerLimit(0.0);
-
-    cout << "upper power limit: " << getPowerUpperLimit() << endl;
-    cout << "lower power limit: " << getPowerLowerLimit() << endl;
-    cout << "upper frequency limit: " << getFreqUpperLimit() << endl;
-    cout << "lower frequency limit: " << getFreqLowerLimit() << endl;
-    cout << "upper cores limit: " << getCoresUpperLimit() << endl;
-    cout << "lower cores limit: " << getCoresLowerLimit() << endl;
-    cout << "upper cpu limit: " << getCPUUpperLimit() << endl;
-    cout << "lower cpu limit: " << getCPULowerLimit() << endl;
-    cout << "upper mem limit: " << getMemUpperLimit() << endl;
-    cout << "lower mem limit: " << getMemLowerLimit() << endl;
-    
-    
-    // const Json::Value& characters = getList("characters");
-    // for (int i = 0; i < characters.size(); i++){
-        // cout << "    name: " << characters[i]["name"].asString();
-        // cout << " chapter: " << characters[i]["chapter"].asUInt();
-        // cout << endl;
-    // }
-}*/
 
 
 
