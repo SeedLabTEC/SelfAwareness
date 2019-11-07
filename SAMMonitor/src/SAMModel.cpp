@@ -1,181 +1,91 @@
 #include <stdlib.h>
 #include <iostream>
 #include <fstream>
-#include <jsoncpp/json/json.h>
 #include <string>
-#include <SAMModel.h>
-#include <logger.h>
 
 using namespace std;
 
-string JSON_PATH = "/usr/SAM/Model/";
+string JSON_PATH =  "/usr/SAM/Model/";
 
-Json::Value model;
 
-void readJson(string path, int pid){
-    string complete_path = path + to_string(pid) + ".json";
-    ifstream ifs(complete_path);
-    if(!ifs.is_open()){
-        cout << "error oppening json file:" + complete_path << endl;
-        writelog("error oppening json file:" + complete_path);
+int model_pid;
+float model_upperPower;
+float model_lowerPower;
+int model_upperFreq;
+int model_lowerFreq;
+int model_upperCores;
+int model_lowerCores;
+float model_upperCPU;
+float model_lowerCPU;
+float model_upperMem;
+float model_lowerMem;
+
+void readJson(int ppid){
+    FILE *fp;
+    char str[1000];
+    string filename = JSON_PATH + to_string(ppid) +".txt";
+    fp = fopen(filename.c_str(), "r");
+    if (fp == NULL)
+    {
+        printf("Could not open file %s\n", filename.c_str());
     }
     else{
-        writelog("json file oppened: " + complete_path);
+        while (fgets(str, 1000, fp) != NULL)
+            ;
+        sscanf(str, "%i:%f:%f:%i:%i:%i:%i:%f:%f:%f:%f", &model_pid,&model_upperPower,&model_lowerPower,&model_upperFreq,&model_lowerFreq,&model_upperCores,&model_lowerCores,&model_upperCPU,&model_lowerCPU,&model_upperMem,&model_lowerMem); 
+        /*cout << str << endl;
+        cout << model_pid << endl;
+        cout << model_upperPower << endl;
+        cout << model_lowerPower << endl;
+        cout << model_upperFreq << endl;
+        cout << model_lowerFreq << endl;
+        cout << model_upperCores << endl;
+        cout << model_lowerCores << endl;
+        cout << model_upperCPU << endl;
+        cout << model_lowerCPU << endl;
+        cout << model_upperMem << endl;
+        cout << model_lowerMem << endl;
+        cout << "end" <<endl;*/
     }
-    
-    Json::Reader reader;
-    reader.parse(ifs, model); // reader can also read strings
-}
-
-void saveJson(string path){
-    Json::StyledStreamWriter writer;
-    std::ofstream output(path);
-    writer.write(output,model);
 }
 
 
-//gets
-static int getInt(string key){
-    return model[key].asInt(); 
+float getPowerUpperLimit(){
+    return model_upperPower;
 }
 
-static double getDouble(string key){
-    return model[key].asDouble(); 
+float getPowerLowerLimit(){
+    return model_lowerPower;
 }
 
-static string getString(string key){
-    return model[key].asString(); 
+float getFreqUpperLimit(){
+    return model_upperFreq;
 }
 
-static Json::Value getList(string key){
-    const Json::Value& temp = model[key];
-    return temp;
+float getFreqLowerLimit(){
+    return model_lowerFreq;
 }
 
-int getPID(){
-    return getInt("pid");
+float getCoresUpperLimit(){
+    return model_upperCores;
 }
 
-double getPowerUpperLimit(){
-    return getDouble("upperPower");
+float getCoresLowerLimit(){
+    return model_lowerCores;
 }
 
-double getPowerLowerLimit(){
-    return getDouble("lowerPower");
+float getCPUUpperLimit(){
+    return model_upperCPU;
 }
 
-double getFreqUpperLimit(){
-    return getDouble("upperFreq");
+float getCPULowerLimit(){
+    return model_lowerCPU;
 }
 
-double getFreqLowerLimit(){
-    return getDouble("lowerFreq");
+float getMemUpperLimit(){
+    return model_upperMem;
 }
 
-double getCoresUpperLimit(){
-    return getDouble("upperCores");
+float getMemLowerLimit(){
+    return model_lowerMem;
 }
-
-double getCoresLowerLimit(){
-    return getDouble("lowerCores");
-}
-
-double getCPUUpperLimit(){
-    return getDouble("upperCPU");
-}
-
-double getCPULowerLimit(){
-    return getDouble("lowerCPU");
-}
-
-double getMemUpperLimit(){
-    return getDouble("upperMem");
-}
-
-double getMemLowerLimit(){
-    return getDouble("lowerMem");
-}
-
-//sets
-void setPowerUpperLimit(double val){
-    model["upperPower"] = val;
-    saveJson(JSON_PATH);
-}
-
-void setPowerLowerLimit(double val){
-    model["lowerPower"] = val;
-    saveJson(JSON_PATH);
-}
-
-void setFreqUpperLimit(double val){
-    model["upperFreq"] = val;
-    saveJson(JSON_PATH);
-}
-
-void setFreqLowerLimit(double val){
-    model["lowerFreq"] = val;
-    saveJson(JSON_PATH);
-}
-
-void setCoresUpperLimit(double val){
-    model["upperCores"] = val;
-    saveJson(JSON_PATH);
-}
-
-void setCoresLowerLimit(double val){
-    model["lowerCores"] = val;
-    saveJson(JSON_PATH);
-}
-
-void setCPUUpperLimit(double val){
-    model["upperCPU"] = val;
-    saveJson(JSON_PATH);
-}
-
-void setCPULowerLimit(double val){
-    model["lowerCPU"] = val;
-    saveJson(JSON_PATH);
-}
-
-void setMemUpperLimit(double val){
-    model["upperMem"] = val;
-    saveJson(JSON_PATH);
-}
-
-void setMemLowerLimit(double val){
-    model["lowerMem"] = val;
-    saveJson(JSON_PATH);
-}
-
-void startJson(int pid){
-    readJson(JSON_PATH, pid);
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

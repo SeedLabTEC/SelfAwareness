@@ -14,7 +14,7 @@ using namespace std;
 
 void sleepProcessor(int num)
 {
-    cout << "durmiendo el procesador" << endl;
+    cout << "durmiendo el procesador: " << num << endl;
     writelog("durmiendo el procesador number: " + to_string(num));
     string dat = "echo 0 | sudo tee /sys/devices/system/cpu/cpu";
     string spid = to_string(num);
@@ -25,7 +25,7 @@ void sleepProcessor(int num)
 
 void startProcessor(int num)
 {
-    cout << "iniciando el procesador" << endl;
+    cout << "iniciando el procesador: " << num << endl;
     writelog("iniciando el procesador number: " + to_string(num));
     string dat = "echo 1 | sudo tee /sys/devices/system/cpu/cpu";
     string spid = to_string(num);
@@ -36,7 +36,7 @@ void startProcessor(int num)
 
 void sleepProcess(int num)
 {
-    cout << "Durmiendo proceso" << endl;
+    cout << "Durmiendo proceso: " << num << endl;
     writelog("Durmiendo proceso numero: " + to_string(num));
     string dat = "kill -STOP ";
     string spid = to_string(num);
@@ -47,7 +47,7 @@ void sleepProcess(int num)
 
 void moveProcess(int proc, int pid)
 {
-    cout << "moviendo proceso" << endl;
+    cout << "moviendo proceso: " << pid << endl;
     writelog("moviendo proceso numero: " + to_string(pid));
     string dat = "taskset -cp ";
     string spid = to_string(pid);
@@ -59,7 +59,7 @@ void moveProcess(int proc, int pid)
 
 void setMinFreq(int num, int freq)
 {
-    cout << "Seteando frecuencia minima" << endl;
+    cout << "Seteando frecuencia minima: " << freq << endl;
     writelog("Seteando frecuencia "+ to_string(freq)+" minima number: " + to_string(num));
     string dat = "echo "+to_string(freq)+" | sudo tee /sys/devices/system/cpu/cpu";
     string spid = to_string(num);
@@ -70,7 +70,7 @@ void setMinFreq(int num, int freq)
 
 void setMaxFreq(int num, int freq)
 {
-    cout << "Seteando frecuencia minima" << endl;
+    cout << "Seteando frecuencia minima: " << freq << endl;
     writelog("Seteando frecuencia "+ to_string(freq)+" minima number: " + to_string(num));
     string dat = "echo "+to_string(freq)+" | sudo tee /sys/devices/system/cpu/cpu";
     string spid = to_string(num);

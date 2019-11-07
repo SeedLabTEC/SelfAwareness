@@ -1,47 +1,21 @@
-/* Functions */
+void readJson(int);
 
-void startJson(int);
+float getPowerUpperLimit();
 
-//gets
-int getPID();
+float getPowerLowerLimit();
 
-double getPowerUpperLimit();
+float getFreqUpperLimit();
 
-double getPowerLowerLimit();
+float getFreqLowerLimit();
 
-double getFreqUpperLimit();
+float getCoresUpperLimit();
 
-double getFreqLowerLimit();
+float getCoresLowerLimit();
 
-double getCoresUpperLimit();
+float getCPUUpperLimit();
 
-double getCoresLowerLimit();
+float getCPULowerLimit();
 
-double getCPUUpperLimit();
+float getMemUpperLimit();
 
-double getCPULowerLimit();
-
-double getMemUpperLimit();
-
-double getMemLowerLimit();
-
-//sets
-void setPowerUpperLimit(double);
-
-void setPowerLowerLimit(double);
-
-void setFreqUpperLimit(double);
-
-void setFreqLowerLimit(double);
-
-void setCoresUpperLimit(double);
-
-void setCoresLowerLimit(double);
-
-void setCPUUpperLimit(double);
-
-void setCPULowerLimit(double);
-
-void setMemUpperLimit(double);
-
-void setMemLowerLimit(double);
+float getMemLowerLimit();

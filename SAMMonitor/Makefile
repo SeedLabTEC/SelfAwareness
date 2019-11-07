@@ -15,6 +15,9 @@ main: structure binary
 
 structure:
 	@mkdir -p $(BIN_PATH)
+	@mkdir -p $(BIN_PATH)/X86
+	@mkdir -p $(BIN_PATH)/ARM
+	@mkdir -p $(BIN_PATH)
 	@sudo mkdir -p $(LOG_PATH)
 	@sudo mkdir -p $(LOG_PATH)/results
 	@sudo mkdir -p $(USR_PATH)
@@ -24,7 +27,7 @@ structure:
 binary:
 	@cd $(LIB_PATH) && $(MAKE)
 	@cd $(SRC_PATH) && $(MAKE)
-	@sudo cp models/SAMModel.json $(USR_PATH)/Model/SAMModel.json
+	@sudo cp models/SAMModel.txt $(USR_PATH)/Model/SAMModel.txt
 
 clean:
 	@echo "Cleaning environment"

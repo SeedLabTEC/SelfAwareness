@@ -5,6 +5,7 @@
 #include <SAMModel.h>
 #include <unistd.h>
 #include <logger.h>
+#include <controlVariables.h>
 
 using namespace std;
 
@@ -47,12 +48,16 @@ void cpuDecision(float readCpu, int pid){
     float upper = getCPUUpperLimit();
     float lower = getCPULowerLimit();
     if(readCpu > upper){
-        eqmodel temp = eqmodel(CPU,1,stopProcessor,pid,1,0); // eqmodel(int porigin,int ppriority,int pfunction,int ppid,int proc,int pfreq)
+        int cpu = getActiveCPU();
+        eqmodel temp = eqmodel(CPU,1,stopProcessor,pid,cpu,0); // eqmodel(int porigin,int ppriority,int pfunction,int ppid,int proc,int pfreq)
+        addSleep(cpu);
         push(temp);
         writelog("upper cpu reached for pid: " + to_string(pid));
     }
     else if (readCpu < lower){
-        eqmodel temp = eqmodel(CPU,1,initProcessor,pid,1,0); // eqmodel(int porigin,int ppriority,int pfunction,int ppid,int proc,int pfreq)
+        int cpu = getsleepCPU();
+        eqmodel temp = eqmodel(CPU,1,initProcessor,pid,cpu,0); // eqmodel(int porigin,int ppriority,int pfunction,int ppid,int proc,int pfreq)
+        addActive(cpu);
         push(temp);
         writelog("lower cpu reached for pid: " + to_string(pid));
     }
@@ -66,7 +71,8 @@ void takeDecision(){
 }
 
 void runDecisionMaking(int pid){
-    startJson(pid);
+    readJson(pid);
+    initControlVariables();
     while(1){
         takeDecision();
         usleep(1000000);
