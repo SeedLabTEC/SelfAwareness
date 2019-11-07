@@ -8,6 +8,13 @@ list<int> activeCPUs;
 list<int> sleepCPUs;
 int currentFreq;
 
+int getActiveSize(){
+    return activeCPUs.size();
+}
+
+int getSleepSize(){
+    return sleepCPUs.size();
+}
 
 int getActiveCPU(){
     if(sleepCPUs.size() > 0){
@@ -40,6 +47,7 @@ void addSleep(int data){
 }
 
 void initControlVariables(){
+    addActive(0);
     addActive(1);
     addActive(2);
     addActive(3);

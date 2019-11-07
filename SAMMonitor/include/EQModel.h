@@ -4,6 +4,7 @@ enum Origin{
     POW = 0,
     CPU = 1,
     MEM = 2,
+    GENERAL = 3,
 };
 
 enum Functions{

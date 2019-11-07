@@ -9,6 +9,21 @@
 
 using namespace std;
 
+void decitionHelper(){
+
+    /*
+    -->top reached
+    1. identify running processors
+        a. move process
+        b. if process reach top start processors
+    -->down reached
+    1. identify running processors
+        a. move process
+        b. if process reach down sleep processors
+    */
+    
+}
+
 void writeQueue(int origin,int priority,int function,int pid,int processor){
     eqmodel temp1 =  eqmodel(origin,priority,function,pid,processor,0);
     push(temp1);
@@ -79,6 +94,8 @@ void takeDecision(){
 void runDecisionMaking(int pid){
     readJson(pid);
     initControlVariables();
+    eqmodel temp = eqmodel(GENERAL,100,movePID,pid,0,0); // eqmodel(int porigin,int ppriority,int pfunction,int ppid,int proc,int pfreq)
+    push(temp);
     while(1){
         takeDecision();
         usleep(1000000);
