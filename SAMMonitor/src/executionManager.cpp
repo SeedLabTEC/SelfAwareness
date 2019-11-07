@@ -79,8 +79,24 @@ void setMaxFreq(int num, int freq)
     system(cQuery);
 }
 
+void setCPUFreqStandards(){
+    startProcessor(0);
+    startProcessor(1);
+    startProcessor(2);
+    startProcessor(3);
+    setMinFreq(1,700);
+    setMaxFreq(1,800);
+    setMinFreq(2,800);
+    setMaxFreq(2,900);
+    setMinFreq(3,600);
+    setMaxFreq(3,700);
+    setMinFreq(0,600);
+    setMaxFreq(0,900);
+}
+
 void runQueue()
 {
+    setCPUFreqStandards();
     while (EXEC_STATUS)
     {
         if (size() > 0)
