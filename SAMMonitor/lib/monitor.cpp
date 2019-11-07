@@ -69,7 +69,7 @@ void getUsageNow(int pid,struct generalUse *use){
     getProcessInfo(memUse,pid);
     double cpuUsage = getCpuUsage(pid);
     cpuUsage = cpuForPc(cpuUsage);
-    double powerUse = getPIDPower(pid);
+    double powerUse = getPower();
     use->memPercen = memUse->usePercen;
     use->memBytes = memUse->useBytes;
     use->pid=pid;
@@ -130,6 +130,8 @@ bool recordProcess(int pid,struct generalUse *use){
     use->pid=pid;
     use->usePower=0;
     use->date= to_string(time(0)%60);
+    saveEnd(use);
+    saveEnd(use);
     saveEnd(use);
     printf("Process not running\n");
     return false;
