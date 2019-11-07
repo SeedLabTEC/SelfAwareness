@@ -21,6 +21,7 @@ int fd;
 
 //variables of readed file
 int pid;
+int processor;
 float mem_bytes;
 float mem_porcent;
 float cpu_porcent;
@@ -49,13 +50,14 @@ void readLine(int ppid){
     std::string str; 
     int iterator = 1;
     while (std::getline(file, str) && iterator > 0) {
-        sscanf(str.c_str(), "%i:%f:%f:%f:%f:%i:%i", &pid,&mem_bytes,&mem_porcent,&cpu_porcent,&power_porcent,&date,&state);
+        sscanf(str.c_str(), "%i:%f:%f:%f:%i:%f:%i:%i", &pid,&mem_bytes,&mem_porcent,&cpu_porcent,&processor,&power_porcent,&date,&state);
         if(date > last_read_date){
             last_read_date = date;
             writelog("pid: " + to_string(pid));
             writelog("mem bytes: " + to_string(mem_bytes));
             writelog("mem porcent: " + to_string(mem_porcent));
             writelog("cpu porcent: " + to_string(cpu_porcent));
+            writelog("processor: " + to_string(processor));
             writelog("power porcent: " + to_string(power_porcent));
             writelog("date: " + to_string(date));
             writelog("state: " + to_string(state));
