@@ -18,14 +18,16 @@ void powerDecision(float readPower, int pid){
     float upper = getPowerUpperLimit();
     float lower = getPowerLowerLimit();
     if(readPower > upper){
-        eqmodel temp = eqmodel(POW,1,stopProcessor,pid,1,0); // eqmodel(int porigin,int ppriority,int pfunction,int ppid,int proc,int pfreq)
+        //eqmodel temp = eqmodel(POW,1,stopProcessor,pid,1,0); // eqmodel(int porigin,int ppriority,int pfunction,int ppid,int proc,int pfreq)
         //push(temp);
-        //writelog("upper power reached for pid: " + to_string(pid));
+        cout << "upper power reached" << endl;
+        writelog("upper power reached for pid: " + to_string(pid));
     }
     else if (readPower < lower){
-        eqmodel temp = eqmodel(POW,1,initProcessor,pid,1,0); // eqmodel(int porigin,int ppriority,int pfunction,int ppid,int proc,int pfreq)
+        //eqmodel temp = eqmodel(POW,1,initProcessor,pid,1,0); // eqmodel(int porigin,int ppriority,int pfunction,int ppid,int proc,int pfreq)
         //push(temp);
-        //writelog("lower power reached for pid: " + to_string(pid));
+        cout << "lower power reached" << endl;
+        writelog("lower power reached for pid: " + to_string(pid));
     }
 }
 
@@ -33,14 +35,16 @@ void memDecision(float readMem, int pid){
     float upper = getMemUpperLimit();
     float lower = getMemLowerLimit();
     if(readMem > upper){
-        eqmodel temp = eqmodel(MEM,1,stopProcessor,pid,1,0); // eqmodel(int porigin,int ppriority,int pfunction,int ppid,int proc,int pfreq)
+        //eqmodel temp = eqmodel(MEM,1,stopProcessor,pid,1,0); // eqmodel(int porigin,int ppriority,int pfunction,int ppid,int proc,int pfreq)
         //push(temp);
-        //writelog("upper mem reached for pid: " + to_string(pid));
+        cout << "upper mem reached" << endl;
+        writelog("upper mem reached for pid: " + to_string(pid));
     }
     else if (readMem < lower){
-        eqmodel temp = eqmodel(MEM,1,initProcessor,pid,1,0); // eqmodel(int porigin,int ppriority,int pfunction,int ppid,int proc,int pfreq)
+        //eqmodel temp = eqmodel(MEM,1,initProcessor,pid,1,0); // eqmodel(int porigin,int ppriority,int pfunction,int ppid,int proc,int pfreq)
         //push(temp);
-        //writelog("lower mem reached for pid: " + to_string(pid));
+        cout << "lower mem reached" << endl;
+        writelog("lower mem reached for pid: " + to_string(pid));
     }
 }
 
@@ -48,6 +52,7 @@ void cpuDecision(float readCpu, int pid){
     float upper = getCPUUpperLimit();
     float lower = getCPULowerLimit();
     if(readCpu > upper){
+        cout << "upper cpu reached" << endl;
         int cpu = getActiveCPU();
         eqmodel temp = eqmodel(CPU,1,stopProcessor,pid,cpu,0); // eqmodel(int porigin,int ppriority,int pfunction,int ppid,int proc,int pfreq)
         addSleep(cpu);
@@ -55,6 +60,7 @@ void cpuDecision(float readCpu, int pid){
         writelog("upper cpu reached for pid: " + to_string(pid));
     }
     else if (readCpu < lower){
+        cout << "lower cpu reached" << endl;
         int cpu = getsleepCPU();
         eqmodel temp = eqmodel(CPU,1,initProcessor,pid,cpu,0); // eqmodel(int porigin,int ppriority,int pfunction,int ppid,int proc,int pfreq)
         addActive(cpu);
