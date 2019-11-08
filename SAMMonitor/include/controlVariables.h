@@ -11,3 +11,7 @@ void initControlVariables();
 int getActiveSize();
 
 int getSleepSize();
+
+int getCurrentProc();
+
+void setCurrentProc(int proc);

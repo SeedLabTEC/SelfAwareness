@@ -7,6 +7,16 @@ using namespace std;
 list<int> activeCPUs;
 list<int> sleepCPUs;
 int currentFreq;
+int currentProc = 0;
+
+int getCurrentProc(){
+    return currentProc;
+}
+
+void setCurrentProc(int proc){
+    currentProc = proc;
+}
+
 
 int getActiveSize(){
     return activeCPUs.size();
