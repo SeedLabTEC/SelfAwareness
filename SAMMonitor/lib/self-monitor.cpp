@@ -134,7 +134,7 @@ double getPIDPower(int pid)
         return 0;
     }
 
-    string dat = "sudo cat /proc/";
+    string dat = "cat /proc/";
     string spid=to_string(pid);
     string query=dat+spid+"/io > current_cm.txt";
     const char * cQuery = query.c_str();
