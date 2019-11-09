@@ -61,10 +61,10 @@ void readLine(int ppid){
             writelog("power porcent: " + to_string(power_porcent));
             writelog("date: " + to_string(date));
             writelog("state: " + to_string(state));
-            if(state == 0){
-                setMainFlag(0);
-            }
             iterator --;
+        }
+        if(state == 0){
+                setMainFlag(0);
         }
     }
     closeFile();
