@@ -18,16 +18,16 @@ structure:
 	@mkdir -p $(BIN_PATH)/X86
 	@mkdir -p $(BIN_PATH)/ARM
 	@mkdir -p $(BIN_PATH)
-	@sudo mkdir -p $(LOG_PATH)
-	@sudo mkdir -p $(LOG_PATH)/results
-	@sudo mkdir -p $(USR_PATH)
-	@sudo mkdir -p $(USR_PATH)/Model
-	@sudo touch $(LOG_PATH)/results/executionEngine.txt
+	@mkdir -p $(LOG_PATH)
+	@mkdir -p $(LOG_PATH)/results
+	@mkdir -p $(USR_PATH)
+	@mkdir -p $(USR_PATH)/Model
+	@touch $(LOG_PATH)/results/executionEngine.txt
 
 binary:
 	@cd $(LIB_PATH) && $(MAKE)
 	@cd $(SRC_PATH) && $(MAKE)
-	@sudo cp models/SAMModel.txt $(USR_PATH)/Model/SAMModel.txt
+	@cp models/SAMModel.txt $(USR_PATH)/Model/SAMModel.txt
 
 clean:
 	@echo "Cleaning environment"
