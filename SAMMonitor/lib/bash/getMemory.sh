@@ -25,13 +25,18 @@ checkCPUId(){
    cpu=$(ps -p $1 -o psr)
    cpu=$(echo $cpu | sed -e s/^$prefixCPU//)
 }
+checkMAXCPU(){
+   max=$(nproc --all)
+   max=$(echo $max)
+}
 
 #Function that concatenate all the information
 checkMem(){
+    checkMAXCPU
     checkMemPer $1
     checkMemBytes $1
     checkCPUId $1
-    result=$1$separator$memoryBytes$separator$memoryPer$separator$cpu$separator$($now)
+    result=$1$separator$memoryBytes$separator$memoryPer$separator$cpu$separator$max$separator$($now)
     echo "$result">>"$file"
 }
 checkMem $1

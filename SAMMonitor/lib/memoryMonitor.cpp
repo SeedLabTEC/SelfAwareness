@@ -18,6 +18,7 @@ struct memoryUse {
   double usePercen;
   double useBytes;
   int processor;
+  int totalProcessors;
   bool error;
 };
 
@@ -75,11 +76,13 @@ void getStructuredInfo(struct memoryUse *data,vector<string> processInfo){
     double useBytes = atof(processInfo.at(1).c_str());
     double usePercen = atof(processInfo.at(2).c_str()); 
     int processor = atoi(processInfo.at(3).c_str());
+    int total = atoi(processInfo.at(4).c_str());
     data->pid = pid;
     data->useBytes = useBytes;
     data->usePercen = usePercen;
     data->error = false;
     data->processor = processor;
+    data->totalProcessors = total;
 }
 
 void getProcessInfo(struct memoryUse *data, int pid){
