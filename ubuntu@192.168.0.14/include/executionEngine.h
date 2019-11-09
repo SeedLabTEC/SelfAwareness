@@ -1,1 +1,0 @@
-void runThreads(int pid);
