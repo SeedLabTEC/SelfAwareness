@@ -33,7 +33,7 @@ struct generalUse {
 };
 
 
-const unsigned int microseconds = 500000;
+const unsigned int microseconds = 100000;
 // bool checkRunning(int pid){
 //     string spid = to_string(pid);
 //     char command[]= "ps -p ";
@@ -57,10 +57,10 @@ int getProcessor(int pid){
 
 }
 
-double cpuForPc(double cpu){
-    int temRange = (int)(cpu/100);
-    temRange++;
-    double resCpu = cpu/temRange;
+double cpuForPc(double cpu,int total){
+    // int temRange = (int)(cpu/4);
+    // temRange++;
+    double resCpu = cpu/total;
     return resCpu;
 }
 
@@ -68,7 +68,7 @@ void getUsageNow(int pid,struct generalUse *use){
     memoryUse *memUse = new memoryUse();
     getProcessInfo(memUse,pid);
     double cpuUsage = getCpuUsage(pid);
-    cpuUsage = cpuForPc(cpuUsage);
+    cpuUsage = cpuForPc(cpuUsage,memUse->totalProcessors);
     double powerUse = getPIDPower(pid);
     use->memPercen = memUse->usePercen;
     use->memBytes = memUse->useBytes;
