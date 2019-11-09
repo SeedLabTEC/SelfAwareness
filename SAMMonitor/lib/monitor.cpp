@@ -69,7 +69,7 @@ void getUsageNow(int pid,struct generalUse *use){
     getProcessInfo(memUse,pid);
     double cpuUsage = getCpuUsage(pid);
     cpuUsage = cpuForPc(cpuUsage);
-    double powerUse = getPower();
+    double powerUse = getPIDPower(pid);
     use->memPercen = memUse->usePercen;
     use->memBytes = memUse->useBytes;
     use->pid=pid;
