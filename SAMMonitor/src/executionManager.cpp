@@ -16,7 +16,7 @@ void sleepProcessor(int num)
 {
     cout << "durmiendo el procesador: " << num << endl;
     writelog("durmiendo el procesador number: " + to_string(num));
-    string dat = "echo 0 | sudo tee /sys/devices/system/cpu/cpu";
+    string dat = "echo 0 | tee /sys/devices/system/cpu/cpu";
     string spid = to_string(num);
     string query = dat + spid + "/online";
     const char *cQuery = query.c_str();
@@ -27,7 +27,7 @@ void startProcessor(int num)
 {
     cout << "iniciando el procesador: " << num << endl;
     writelog("iniciando el procesador number: " + to_string(num));
-    string dat = "echo 1 | sudo tee /sys/devices/system/cpu/cpu";
+    string dat = "echo 1 | tee /sys/devices/system/cpu/cpu";
     string spid = to_string(num);
     string query = dat + spid + "/online";
     const char *cQuery = query.c_str();
@@ -61,7 +61,7 @@ void setMinFreq(int num, int freq)
 {
     cout << "Seteando frecuencia minima: " << freq << endl;
     writelog("Seteando frecuencia "+ to_string(freq)+" minima number: " + to_string(num));
-    string dat = "echo "+to_string(freq)+" | sudo tee /sys/devices/system/cpu/cpu";
+    string dat = "echo "+to_string(freq)+" | tee /sys/devices/system/cpu/cpu";
     string spid = to_string(num);
     string query = dat + spid + "/cpufreq/scaling_min_freq";
     const char *cQuery = query.c_str(); 
@@ -72,7 +72,7 @@ void setMaxFreq(int num, int freq)
 {
     cout << "Seteando frecuencia minima: " << freq << endl;
     writelog("Seteando frecuencia "+ to_string(freq)+" minima number: " + to_string(num));
-    string dat = "echo "+to_string(freq)+" | sudo tee /sys/devices/system/cpu/cpu";
+    string dat = "echo "+to_string(freq)+" | tee /sys/devices/system/cpu/cpu";
     string spid = to_string(num);
     string query = dat + spid + "/cpufreq/scaling_max_freq";
     const char *cQuery = query.c_str(); 

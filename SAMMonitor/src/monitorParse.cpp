@@ -61,6 +61,16 @@ void readLine(int ppid){
             writelog("power porcent: " + to_string(power_porcent));
             writelog("date: " + to_string(date));
             writelog("state: " + to_string(state));
+            //-----------------
+            writelogResults("pid: " + to_string(pid));
+            writelogResults("mem bytes: " + to_string(mem_bytes));
+            writelogResults("mem porcent: " + to_string(mem_porcent));
+            writelogResults("cpu porcent: " + to_string(cpu_porcent));
+            writelogResults("processor: " + to_string(processor));
+            writelogResults("power porcent: " + to_string(power_porcent));
+            writelogResults("date: " + to_string(date));
+            writelogResults("state: " + to_string(state));
+            writelogResults("------------------------------------------");
             iterator --;
         }
         if(state == 0){
