@@ -1,3 +1,3 @@
 all:
-	cd lib/ && sudo make
-	cd src/ && sudo make
+	cd lib/ && make
+	cd src/ && make

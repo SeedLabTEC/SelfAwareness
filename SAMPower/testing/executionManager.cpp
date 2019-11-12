@@ -13,7 +13,7 @@ using namespace std;
 
 void sleepProcessor(int num){
     cout << "durmiendo el procesador" << endl;
-    string dat = "echo 0 | sudo tee /sys/devices/system/cpu/cpu";
+    string dat = "echo 0 | tee /sys/devices/system/cpu/cpu";
     string spid=to_string(num);
     string query=dat+spid+"/online";
     const char * cQuery = query.c_str();
@@ -21,7 +21,7 @@ void sleepProcessor(int num){
 }
 
 void startProcessor(int num){
-    string dat = "echo 1 | sudo tee /sys/devices/system/cpu/cpu";
+    string dat = "echo 1 | tee /sys/devices/system/cpu/cpu";
     string spid=to_string(num);
     string query=dat+spid+"/online";
     const char * cQuery = query.c_str();

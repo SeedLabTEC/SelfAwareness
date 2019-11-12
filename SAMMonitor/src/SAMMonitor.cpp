@@ -21,6 +21,7 @@ void setNormalState(int i){
 int main(int argc, char **argv){
     generalUse *use = new generalUse();
     int pid = atoi(argv[1]);
+    setPID(pid);
     writelog("Process start with PID:" + to_string(pid));
     runThreads(pid);
     while(main_flag);

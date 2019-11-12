@@ -27,7 +27,7 @@ int getSleepSize(){
 }
 
 int getActiveCPU(){
-    if(sleepCPUs.size() > 0){
+    if(activeCPUs.size() > 0){
         int temp = activeCPUs.back();
         activeCPUs.pop_back();
         return temp;

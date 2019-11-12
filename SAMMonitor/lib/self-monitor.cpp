@@ -120,6 +120,7 @@ double getPIDPower(int pid)
     int current_freq = 0;
     sscanf(ptr,"%i",&current_freq);
     system("rm -r current_Freq.txt");
+    fclose(fp);
 
     //read cache misses
     double power_porcent = 0;
@@ -139,6 +140,7 @@ double getPIDPower(int pid)
     string query=dat+spid+"/io > current_cm.txt";
     const char * cQuery = query.c_str();
     system(cQuery);
+    fclose(fp_verif);
     FILE *fp2;
     char str2[100];
     const char *filename2 = "current_cm.txt";
@@ -158,7 +160,7 @@ double getPIDPower(int pid)
     }
     sscanf(str2,"read_bytes: %i",&read_bytes);
     system("rm -r current_cm.txt");
-
+    fclose(fp2);
 
     //by lineal regretion formula
     /**
