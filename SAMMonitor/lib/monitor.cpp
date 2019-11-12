@@ -69,7 +69,8 @@ void getUsageNow(int pid,struct generalUse *use){
     getProcessInfo(memUse,pid);
     double cpuUsage = getCpuUsage(pid);
     cpuUsage = cpuForPc(cpuUsage,memUse->totalProcessors);
-    double powerUse = getPIDPower(pid);
+    //double powerUse = getPIDPower(pid);
+    double powerUse = 0;
     use->memPercen = memUse->usePercen;
     use->memBytes = memUse->useBytes;
     use->pid=pid;
@@ -121,7 +122,6 @@ bool recordProcess(int pid,struct generalUse *use){
     if(checkRunning(pid)){
         getUsageNow(pid,use);
         saveRecord(use);
-        printf("monitoring\n");
         return true;
     }
     use->cpuPercen=0;
