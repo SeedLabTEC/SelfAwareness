@@ -97,11 +97,6 @@ double getPIDPower(int pid)
     //Info based on Raspberry pi 2 board
     float voltaje = 5;
     float max_current = 1.8;
-    /*float min_current = 0.0017;
-    float min_freq = 600;
-    float max_freq = 900;
-    float min_cm = 0;
-    float max_cm = 100;*/
 
     //read freq
     system("cat /sys/devices/system/cpu/cpufreq/policy0/scaling_cur_freq > current_Freq.txt");
@@ -120,8 +115,8 @@ double getPIDPower(int pid)
     int current_freq = 0;
     sscanf(ptr,"%i",&current_freq);
     system("rm -r current_Freq.txt");
+    cout << "current freq: " << current_freq << endl;
     fclose(fp);
-
     //read cache misses
     double power_porcent = 0;
     try{
@@ -160,8 +155,7 @@ double getPIDPower(int pid)
     }
     sscanf(str2,"read_bytes: %i",&read_bytes);
     system("rm -r current_cm.txt");
-    fclose(fp2);
-
+     fclose(fp2);
     //by lineal regretion formula
     /**
      * p1 = (min_current*voltaje,0) = (1.75,0) ; se establece 0 como la nueva referencia para el valor menor
@@ -171,6 +165,7 @@ double getPIDPower(int pid)
      **/
     current_freq = (current_freq / 1000);
     double cache_miss = (100*abs(read_bytes-rchar)/(rchar+read_bytes)); // REVISAR
+    cout << "cache miss: " << cache_miss << endl;
     if(cache_miss == 0)
         cache_miss = 1;
     if(cache_miss > 0)
@@ -180,7 +175,8 @@ double getPIDPower(int pid)
     }catch(exception e){
         power_porcent = 0;
     }
-    return power_porcent;
+
+    return abs(power_porcent);
 }
 
 /**
