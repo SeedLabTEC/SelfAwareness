@@ -115,7 +115,7 @@ double getPIDPower(int pid)
     int current_freq = 0;
     sscanf(ptr,"%i",&current_freq);
     system("rm -r current_Freq.txt");
-    cout << "current freq: " << current_freq << endl;
+    //cout << "current freq: " << current_freq << endl;
     fclose(fp);
     //read cache misses
     double power_porcent = 0;
@@ -165,7 +165,7 @@ double getPIDPower(int pid)
      **/
     current_freq = (current_freq / 1000);
     double cache_miss = (100*abs(read_bytes-rchar)/(rchar+read_bytes)); // REVISAR
-    cout << "cache miss: " << cache_miss << endl;
+    //cout << "cache miss: " << cache_miss << endl;
     if(cache_miss == 0)
         cache_miss = 1;
     if(cache_miss > 0)
