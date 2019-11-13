@@ -77,7 +77,7 @@ void powerDecision(float readPower, int pid, int proccesorcount)
     {
         if (readPower > upper)
         {
-            cout << "max cpu reached" << endl;
+            cout << "max power reached" << endl;
             if (getCurrentFreq() != 600)
             {
                 for (size_t i = 0; i < proccesorcount; i++)
@@ -96,7 +96,7 @@ void powerDecision(float readPower, int pid, int proccesorcount)
         }
         else if (readPower < lower)
         {
-            cout << "min cpu reached" << endl;
+            cout << "min power reached" << endl;
         }
     }
 }
@@ -110,7 +110,7 @@ void memDecision(float readMem, int pid, int proccesorcount)
     {
         if (readMem > upper)
         {
-            cout << "max cpu reached" << endl;
+            cout << "max mem reached" << endl;
             if (getCurrentFreq() != 900)
             {
                 for (size_t i = 0; i < proccesorcount; i++)
@@ -129,7 +129,7 @@ void memDecision(float readMem, int pid, int proccesorcount)
         }
         else if (readMem < lower)
         {
-            cout << "min cpu reached" << endl;
+            cout << "min mem reached" << endl;
         }
     }
 }
