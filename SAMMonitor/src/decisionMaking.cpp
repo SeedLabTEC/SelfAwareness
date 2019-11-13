@@ -68,7 +68,7 @@ int decitionHelper(bool isUpper)
     }
 }
 
-void powerDecision(float readPower, int pid)
+void powerDecision(float readPower, int pid, int proccesorcount)
 {
     float upper = getPowerUpperLimit();
     float lower = getPowerLowerLimit();
@@ -77,56 +77,31 @@ void powerDecision(float readPower, int pid)
     {
         if (readPower > upper)
         {
-            int flow = decitionHelper(true);
-            cout << "upper cpu reached" << endl;
-            writelog("upper cpu reached for pid: " + to_string(pid));
-            if (flow == sleepProc)
+            cout << "max cpu reached" << endl;
+            if (getCurrentFreq() != 600)
             {
-                int cpu = getActiveCPU();
-                eqmodel temp = eqmodel(CPU, 1, stopProcessor, pid, cpu, 0); // eqmodel(int porigin,int ppriority,int pfunction,int ppid,int proc,int pfreq)
-                addSleep(cpu);
-                push(temp);
-            }
-            else if (flow == upperMovePid)
-            {
-                eqmodel temp = eqmodel(CPU, 1, movePID, pid, 1, 0);
-                setCurrentProc(1);
-                push(temp);
+                for (size_t i = 0; i < proccesorcount; i++)
+                {
+                    eqmodel temp = eqmodel(CPU, 1, maxFreq, pid, i, 600);
+                    eqmodel temp1 = eqmodel(CPU, 1, minFreq, pid, i, 600);
+                    push(temp);
+                    push(temp1);
+                }
+                setCurrentFreq(600);
             }
             else
             {
-                cout << "no more actions could be bound for pid: " << pid << endl;
-                writelog("no more actions could be bound for pid: " + to_string(pid));
+                cout << "not more actions could be make" << endl;
             }
         }
         else if (readPower < lower)
         {
-            cout << "lower cpu reached" << endl;
-            writelog("lower cpu reached for pid: " + to_string(pid));
-            int flow = decitionHelper(false);
-            if (flow == startProc)
-            {
-                int cpu = getsleepCPU();
-                eqmodel temp = eqmodel(CPU, 1, initProcessor, pid, cpu, 0); // eqmodel(int porigin,int ppriority,int pfunction,int ppid,int proc,int pfreq)
-                addActive(cpu);
-                push(temp);
-            }
-            else if (flow == lowerMovePid)
-            {
-                eqmodel temp = eqmodel(CPU, 1, movePID, pid, 3, 0);
-                setCurrentProc(3);
-                push(temp);
-            }
-            else
-            {
-                cout << "no more actions could be bound for pid: " << pid << endl;
-                writelog("no more actions could be bound for pid: " + to_string(pid));
-            }
+            cout << "min cpu reached" << endl;
         }
     }
 }
 
-void memDecision(float readMem, int pid)
+void memDecision(float readMem, int pid, int proccesorcount)
 {
     float upper = getMemUpperLimit();
     float lower = getMemLowerLimit();
@@ -135,50 +110,25 @@ void memDecision(float readMem, int pid)
     {
         if (readMem > upper)
         {
-            int flow = decitionHelper(true);
-            cout << "upper cpu reached" << endl;
-            writelog("upper cpu reached for pid: " + to_string(pid));
-            if (flow == sleepProc)
-            {
-                int cpu = getActiveCPU();
-                eqmodel temp = eqmodel(CPU, 1, stopProcessor, pid, cpu, 0); // eqmodel(int porigin,int ppriority,int pfunction,int ppid,int proc,int pfreq)
-                addSleep(cpu);
-                push(temp);
-            }
-            else if (flow == upperMovePid)
-            {
-                eqmodel temp = eqmodel(CPU, 1, movePID, pid, 1, 0);
-                setCurrentProc(1);
-                push(temp);
-            }
-            else
-            {
-                cout << "no more actions could be bound for pid: " << pid << endl;
-                writelog("no more actions could be bound for pid: " + to_string(pid));
-            }
+            cout << "max cpu reached" << endl;
         }
         else if (readMem < lower)
         {
-            cout << "lower cpu reached" << endl;
-            writelog("lower cpu reached for pid: " + to_string(pid));
-            int flow = decitionHelper(false);
-            if (flow == startProc)
+            cout << "min cpu reached" << endl;
+            if (getCurrentFreq() != 900)
             {
-                int cpu = getsleepCPU();
-                eqmodel temp = eqmodel(CPU, 1, initProcessor, pid, cpu, 0); // eqmodel(int porigin,int ppriority,int pfunction,int ppid,int proc,int pfreq)
-                addActive(cpu);
-                push(temp);
-            }
-            else if (flow == lowerMovePid)
-            {
-                eqmodel temp = eqmodel(CPU, 1, movePID, pid, 3, 0);
-                setCurrentProc(3);
-                push(temp);
+                for (size_t i = 0; i < proccesorcount; i++)
+                {
+                    eqmodel temp = eqmodel(CPU, 1, maxFreq, pid, i, 900);
+                    eqmodel temp1 = eqmodel(CPU, 1, minFreq, pid, i, 900);
+                    push(temp);
+                    push(temp1);
+                }
+                setCurrentFreq(900);
             }
             else
             {
-                cout << "no more actions could be bound for pid: " << pid << endl;
-                writelog("no more actions could be bound for pid: " + to_string(pid));
+                cout << "not more actions could be make" << endl;
             }
         }
     }
@@ -235,8 +185,8 @@ void cpuDecision(float readCpu, int pid, int proccesorcount)
 void takeDecision()
 {
     monitorData data = getreadData();
-    powerDecision(*data.power_porcent, *data.pid);
-    memDecision(*data.power_porcent, *data.pid);
+    powerDecision(*data.power_porcent, *data.pid, *data.processorcount);
+    memDecision(*data.power_porcent, *data.pid, *data.processorcount);
     cpuDecision(*data.power_porcent, *data.pid, *data.processorcount);
 }
 
