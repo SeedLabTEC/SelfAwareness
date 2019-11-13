@@ -59,7 +59,7 @@ void moveProcess(int proc, int pid)
 
 void setMinFreq(int num, int freq)
 {
-    cout << "Seteando frecuencia minima: " << freq << endl;
+    cout << "Seteando frecuencia minima: " << freq << ", para el procesador:" << num << endl;
     writelog("Seteando frecuencia "+ to_string(freq)+" minima number: " + to_string(num));
     string dat = "echo "+to_string(freq)+" | tee /sys/devices/system/cpu/cpu";
     string spid = to_string(num);
@@ -70,7 +70,7 @@ void setMinFreq(int num, int freq)
 
 void setMaxFreq(int num, int freq)
 {
-    cout << "Seteando frecuencia minima: " << freq << endl;
+    cout << "Seteando frecuencia maxima: " << freq << ", para el procesador:" << num << endl;
     writelog("Seteando frecuencia "+ to_string(freq)+" minima number: " + to_string(num));
     string dat = "echo "+to_string(freq)+" | tee /sys/devices/system/cpu/cpu";
     string spid = to_string(num);
@@ -117,13 +117,13 @@ void runQueue()
                 sleepProcess(temp.pid);
                 break;
             case minFreq:
-                setMinFreq(temp.pid,temp.freq);
+                setMinFreq(temp.processor,temp.freq);
                 break;
             case maxFreq:
-                setMaxFreq(temp.pid,temp.freq);
+                setMaxFreq(temp.processor,temp.freq);
                 break;
             }
-            usleep(1000);
+            //usleep(1000000);
         }
     }
 }

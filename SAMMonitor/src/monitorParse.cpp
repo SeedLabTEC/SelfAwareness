@@ -22,6 +22,7 @@ int fd;
 //variables of readed file
 int pid;
 int processor;
+int processorcount;
 float mem_bytes;
 float mem_porcent;
 float cpu_porcent;
@@ -30,7 +31,7 @@ int date;
 int last_read_date = 0;
 int state = 1;
 
-monitorData readData = monitorData(&pid,&mem_bytes,&mem_porcent,&cpu_porcent,&power_porcent,&date);
+monitorData readData = monitorData(&pid,&mem_bytes,&mem_porcent,&cpu_porcent,&power_porcent,&date,&processor,&processorcount);
 
 void openFile(int pid){
     string path = FILE_PATH+to_string(pid)+".txt";
@@ -50,7 +51,7 @@ void readLine(int ppid){
     std::string str; 
     int iterator = 1;
     while (std::getline(file, str) && iterator > 0) {
-        sscanf(str.c_str(), "%i:%f:%f:%f:%i:%f:%i:%i", &pid,&mem_bytes,&mem_porcent,&cpu_porcent,&processor,&power_porcent,&date,&state);
+        sscanf(str.c_str(), "%i:%f:%f:%f:%i:%i:%f:%i:%i", &pid,&mem_bytes,&mem_porcent,&cpu_porcent,&processor,&processorcount,&power_porcent,&date,&state);
         if(date > last_read_date){
             last_read_date = date;
             writelog("pid: " + to_string(pid));
@@ -58,6 +59,7 @@ void readLine(int ppid){
             writelog("mem porcent: " + to_string(mem_porcent));
             writelog("cpu porcent: " + to_string(cpu_porcent));
             writelog("processor: " + to_string(processor));
+            writelog("processor count: " + to_string(processorcount));
             writelog("power porcent: " + to_string(power_porcent));
             writelog("date: " + to_string(date));
             writelog("state: " + to_string(state));
@@ -67,6 +69,7 @@ void readLine(int ppid){
             writelogResults("mem porcent: " + to_string(mem_porcent));
             writelogResults("cpu porcent: " + to_string(cpu_porcent));
             writelogResults("processor: " + to_string(processor));
+            writelogResults("processor count: " + to_string(processorcount));
             writelogResults("power porcent: " + to_string(power_porcent));
             writelogResults("date: " + to_string(date));
             writelogResults("state: " + to_string(state));
@@ -136,7 +139,7 @@ int mapRead()
 }
 
 monitorData getreadData(){
-    return readData;
+    return readData; 
 }
 
 void runMonitorQueue(int pid){
