@@ -151,7 +151,7 @@ void monitorProcess(int pid){
     bool status = recordProcess(pid,use);
     while(status){
         status = recordProcess(pid,use);
-        usleep(microseconds);
+        //usleep(microseconds);
     }
     printf("process end\n");
     return;
