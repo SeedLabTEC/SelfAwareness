@@ -19,6 +19,9 @@ float model_upperCPU;
 float model_lowerCPU;
 float model_upperMem;
 float model_lowerMem;
+int priority1;
+int priority2;
+int priority3;
 
 void readJson(int ppid){
     FILE *fp;
@@ -32,7 +35,7 @@ void readJson(int ppid){
     else{
         while (fgets(str, 1000, fp) != NULL)
             ;
-        sscanf(str, "%i:%f:%f:%i:%i:%i:%i:%f:%f:%f:%f", &model_pid,&model_upperPower,&model_lowerPower,&model_upperFreq,&model_lowerFreq,&model_upperCores,&model_lowerCores,&model_upperCPU,&model_lowerCPU,&model_upperMem,&model_lowerMem); 
+        sscanf(str, "%i:%f:%f:%i:%i:%i:%i:%f:%f:%f:%f:%i:%i:%i", &model_pid,&model_upperPower,&model_lowerPower,&model_upperFreq,&model_lowerFreq,&model_upperCores,&model_lowerCores,&model_upperCPU,&model_lowerCPU,&model_upperMem,&model_lowerMem,&priority1,&priority2,&priority3); 
         /*cout << str << endl;
         cout << model_pid << endl;
         cout << model_upperPower << endl;
@@ -88,4 +91,8 @@ float getMemUpperLimit(){
 
 float getMemLowerLimit(){
     return model_lowerMem;
+}
+
+int getPriority1(){
+    return priority1;
 }

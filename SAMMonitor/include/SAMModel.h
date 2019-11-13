@@ -19,3 +19,5 @@ float getCPULowerLimit();
 float getMemUpperLimit();
 
 float getMemLowerLimit();
+
+int getPriority1();
