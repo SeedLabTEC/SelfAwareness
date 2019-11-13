@@ -185,12 +185,12 @@ double getPIDPower(int pid)
 double getPower()    
 {
     string dat = "top";
-    string query=dat+" -b -d 1 -n 1 > temp.txt";
+    string query=dat+" -b -d 1 -n 1 > tempPower.txt";
     const char * cQuery = query.c_str();
     system(cQuery);
     FILE *fp;
     char str[1000];
-    const char *filename = "temp.txt";
+    const char *filename = "tempPower.txt";
     fp = fopen(filename, "r");
     if (fp == NULL)
     {
@@ -224,7 +224,7 @@ double getPower()
             cont++;
         }
     }
-    system("rm -r temp.txt");
+    system("rm -r tempPower.txt");
 
     temp_power = temp_power/10;
 

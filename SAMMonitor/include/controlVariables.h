@@ -15,3 +15,7 @@ int getSleepSize();
 int getCurrentProc();
 
 void setCurrentProc(int proc);
+
+int getCurrentFreq();
+
+void setCurrentFreq(int freq);

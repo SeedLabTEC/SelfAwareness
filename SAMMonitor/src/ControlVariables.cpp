@@ -6,8 +6,16 @@ using namespace std;
 
 list<int> activeCPUs;
 list<int> sleepCPUs;
-int currentFreq;
+int currentFreq = 900;
 int currentProc = 0;
+
+int getCurrentFreq(){
+    return currentProc;
+}
+
+void setCurrentFreq(int freq){
+    currentFreq = freq;
+}
 
 int getCurrentProc(){
     return currentProc;

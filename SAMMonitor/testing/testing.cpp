@@ -35,7 +35,6 @@ double getPIDPower(int pid)
     int current_freq = 0;
     sscanf(ptr,"%i",&current_freq);
     system("rm -r current_Freq.txt");
-    cout << "current freq: " << current_freq << endl;
     fclose(fp);
     //read cache misses
     double power_porcent = 0;
@@ -85,7 +84,6 @@ double getPIDPower(int pid)
      **/
     current_freq = (current_freq / 1000);
     double cache_miss = (100*abs(read_bytes-rchar)/(rchar+read_bytes)); // REVISAR
-    cout << "cache miss: " << cache_miss << endl;
     if(cache_miss == 0)
         cache_miss = 1;
     if(cache_miss > 0)
@@ -99,7 +97,67 @@ double getPIDPower(int pid)
     return abs(power_porcent);
 }
 
+/**
+ * returns lineal regretion ecuation constant in order to determine PID powers
+ * */
+double getPower()    
+{
+    string dat = "top";
+    string query=dat+" -b -d 1 -n 1 > tempPower.txt";
+    const char * cQuery = query.c_str();
+    system(cQuery);
+    FILE *fp;
+    char str[1000];
+    const char *filename = "tempPower.txt";
+    fp = fopen(filename, "r");
+    if (fp == NULL)
+    {
+        printf("Could not open file %s", filename);
+        return 1;
+    }
+    for (size_t i = 0; i < 7; i++)
+    {
+        fgets(str, 1000, fp);
+    }
+    int cont = 0;
+    double temp_power = 0;
+    for (size_t i = 0; i < 10; i++)
+    {
+        fgets(str, 1000, fp);
+        char *ptr = strtok(str, " ");
+        cont = 0;
+        while (ptr != NULL)
+        {
+            if (cont == 0)
+            {
+                try{
+                temp_power += getPIDPower(atoi(ptr));
+                }
+                catch(exception e){
+                    temp_power += 0;
+                }
+                break; 
+            }
+            ptr = strtok(NULL, " ");
+            cont++;
+        }
+    }
+    system("rm -r tempPower.txt");
+
+    temp_power = temp_power/10;
+
+    temp_power = (temp_power+last_power_read)/2;
+
+    last_power_read = temp_power;
+
+    fclose(fp);
+    
+    return (temp_power);
+
+}
+
 int main(int argc, char **argv){
-    int power = getPIDPower(atoi(argv[1]));
+    //int power = getPIDPower(atoi(argv[1]));
+    int power = getPower();
     cout << power << endl;
 }
