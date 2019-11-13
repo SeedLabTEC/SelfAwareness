@@ -111,10 +111,6 @@ void memDecision(float readMem, int pid, int proccesorcount)
         if (readMem > upper)
         {
             cout << "max cpu reached" << endl;
-        }
-        else if (readMem < lower)
-        {
-            cout << "min cpu reached" << endl;
             if (getCurrentFreq() != 900)
             {
                 for (size_t i = 0; i < proccesorcount; i++)
@@ -130,6 +126,10 @@ void memDecision(float readMem, int pid, int proccesorcount)
             {
                 cout << "not more actions could be make" << endl;
             }
+        }
+        else if (readMem < lower)
+        {
+            cout << "min cpu reached" << endl;
         }
     }
 }
