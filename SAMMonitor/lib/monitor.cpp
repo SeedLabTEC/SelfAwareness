@@ -27,8 +27,10 @@ struct generalUse {
   double memBytes;
   double usePower;
   double cpuPercen;
+  double usePowerTotal;
   string date;
   bool error;
+  int totalProcessors;
   int processor;
 };
 
@@ -37,7 +39,7 @@ const unsigned int microseconds = 100000;
 // bool checkRunning(int pid){
 //     string spid = to_string(pid);
 //     char command[]= "ps -p ";
-//     strcat(command, spid.c_str());
+//     strcat(command, spid.c_str());`
 //     int status = system(command);
 //     if(status==0){
 //         return true;
@@ -69,15 +71,18 @@ void getUsageNow(int pid,struct generalUse *use){
     getProcessInfo(memUse,pid);
     double cpuUsage = getCpuUsage(pid);
     cpuUsage = cpuForPc(cpuUsage,memUse->totalProcessors);
-    //double powerUse = getPIDPower(pid);
-    double powerUse = 0;
+    double powerUse = getPIDPower(pid);
+    //double totalPower = getPower();
+    double totalPower = 0;
     use->memPercen = memUse->usePercen;
     use->memBytes = memUse->useBytes;
     use->pid=pid;
     use->date = to_string(time(0)%60);
     use->cpuPercen = cpuUsage;
     use->usePower = powerUse;
+    use->usePowerTotal = totalPower;
     use->processor = memUse->processor;
+    use->totalProcessors = memUse->totalProcessors;
 }
 
 
@@ -93,7 +98,9 @@ bool saveRecord(struct generalUse *use){
    outfile.open(name);
    history.open(nameHisotry,std::ofstream::out | std::ofstream::app);
    // write inputted data into the file.
-   string data = to_string(use->pid)+":"+to_string(use->memBytes)+":"+to_string(use->memPercen)+":"+to_string(use->cpuPercen)+":"+to_string(use->processor)+":"+to_string(use->usePower)+":"+use->date+":"+to_string(1);
+   string data = to_string(use->pid)+":"+to_string(use->memBytes)+":"+to_string(use->memPercen)+":"
+   +to_string(use->cpuPercen)+":"+to_string(use->processor)+":"+to_string(use->totalProcessors)
+   +":"+to_string(use->usePower)+":"+to_string(use->usePowerTotal)+":"+use->date+":"+to_string(1);
    outfile << data << endl;
    history << data << endl;
    outfile.close();
@@ -110,7 +117,9 @@ bool saveEnd(struct generalUse *use){
    outfile.open(name);
    history.open(nameHisotry,std::ofstream::out | std::ofstream::app);
    // write inputted data into the file.
-   string data = to_string(use->pid)+":"+to_string(use->memBytes)+":"+to_string(use->memPercen)+":"+to_string(use->cpuPercen)+":"+to_string(use->processor)+":"+to_string(use->usePower)+":"+use->date+":"+to_string(0);
+   string data = to_string(use->pid)+":"+to_string(use->memBytes)+":"+to_string(use->memPercen)
+   +":"+to_string(use->cpuPercen)+":"+to_string(use->processor)+":"+to_string(use->totalProcessors)
+   +":"+to_string(use->usePower)+":"+to_string(use->usePowerTotal)+":"+use->date+":"+to_string(0);
    outfile << data << endl;
    history << data << endl;
    outfile.close();

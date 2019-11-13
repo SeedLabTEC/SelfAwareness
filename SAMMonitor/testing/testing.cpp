@@ -143,7 +143,7 @@ double getPower()
         }
     }
     system("rm -r tempPower.txt");
-
+    
     temp_power = temp_power/10;
 
     temp_power = (temp_power+last_power_read)/2;
@@ -158,6 +158,6 @@ double getPower()
 
 int main(int argc, char **argv){
     //int power = getPIDPower(atoi(argv[1]));
-    int power = getPower();
+    double power = getPower();
     cout << power << endl;
 }

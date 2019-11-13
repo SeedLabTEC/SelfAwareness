@@ -2,7 +2,7 @@
 #Constants for the data construction
 separator=":"
 extension=".txt"
-file="../results/"$2$extension
+file="../results/"$1$extension
 prefixPer="%MEM"
 prefixBytes="RSS"
 prefixCPU="PSR"
